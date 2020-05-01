@@ -1,15 +1,15 @@
 import Sequelize from 'sequelize';
 import databaseConfig from '../config/database';
 
-import User from '../models/User';
-import Branch from '../models/Branch';
-import Category from '../models/Category';
-import File from '../models/File';
-import Offer from '../models/Offer';
-import Service from '../models/Service';
-import BuyOrder from '../models/BuyOrder';
-import Region from '../models/Region';
-import Establishment from '../models/Establishment';
+import User from '../app/models/User';
+import Branch from '../app/models/Branch';
+import Category from '../app/models/Category';
+import File from '../app/models/File';
+import Offer from '../app/models/Offer';
+import Service from '../app/models/Service';
+import BuyOrder from '../app/models/BuyOrder';
+import Region from '../app/models/Region';
+import Establishment from '../app/models/Establishment';
 
 const models = [
   File,

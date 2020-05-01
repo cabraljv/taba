@@ -5,8 +5,9 @@
 ### User
 #### Create
 `/user` - **POST**
+Send
 ```javascript
-send: {
+{
   email:String,
   password:String,
   name:String,
@@ -15,8 +16,57 @@ send: {
 ```
 >Avatar is not required
 
-response: success message
+Response
+```javascript
+{
+  response:String
+}
+```
 
 ---
+### Session
+#### Login
+`/session` - **POST**
+Send
+```javascript
+{
+  email:String,
+  password:String,
+}
+```
+
+Response
+```javascript
+{
+  name:String,
+  email:String,
+  token:String
+}
+```
+
+---
+### Establishment
+#### create
+`/establishment` - **POST**
+Send
+```javascript
+body: {
+  name:String,
+  latitude:Double,
+  longitude:Double,
+  branch:Integer,
+  password:Double,
+},
+headers: {
+  authorization:String
+}
+```
+
+Response
+```javascript
+{
+  response:String
+}
+```
 
 
