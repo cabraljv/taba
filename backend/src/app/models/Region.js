@@ -8,6 +8,7 @@ class Region extends Model {
         min_longitude: Sequelize.DOUBLE,
         max_latitude: Sequelize.DOUBLE,
         max_longitude: Sequelize.DOUBLE,
+        name: Sequelize.STRING,
       },
       {
         sequelize,

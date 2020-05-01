@@ -37,6 +37,7 @@ class EstablishmentController {
         [Op.lt]: longitude,
       },
     });
+    console.log(region);
     if (!region) {
       return res.status(400).json({ error: 'Region is not used' });
     }
@@ -46,8 +47,8 @@ class EstablishmentController {
         name,
         latitude,
         longitude,
-        branch,
-        region: region.id,
+        branch_id: branch,
+        region_id: region.id,
         owner_id: req.userId,
         logo_id: logo.id,
       });
@@ -57,7 +58,7 @@ class EstablishmentController {
       name,
       latitude,
       longitude,
-      branch,
+      branch_id: branch,
       region: region.id,
       owner_id: req.userId,
     });

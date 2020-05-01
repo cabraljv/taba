@@ -5,6 +5,7 @@
 ### User
 #### Create
 `/user` - **POST**
+
 Send
 ```javascript
 {
@@ -27,6 +28,7 @@ Response
 ### Session
 #### Login
 `/session` - **POST**
+
 Send
 ```javascript
 {
@@ -48,6 +50,7 @@ Response
 ### Establishment
 #### create
 `/establishment` - **POST**
+
 Send
 ```javascript
 body: {
@@ -55,7 +58,6 @@ body: {
   latitude:Double,
   longitude:Double,
   branch:Integer,
-  password:Double,
 },
 headers: {
   authorization:String
