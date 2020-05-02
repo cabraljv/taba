@@ -1,21 +1,26 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('buy_orders', {
+    return queryInterface.createTable('services_buyorders', {
       id: {
         type: Sequelize.INTEGER,
         alloNull: false,
         primaryKey: true,
         autoIncrement: true,
       },
-      confirmed: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
-      },
-      user_id: {
+      service_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'users',
+          model: 'services',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
+        allowNull: false,
+      },
+      order_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'buy_orders',
           key: 'id',
         },
         onUpdate: 'CASCADE',
@@ -26,10 +31,6 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
       },
-      canceled_at: {
-        type: Sequelize.DATE,
-        allowNull: true,
-      },
       updated_at: {
         type: Sequelize.DATE,
         allowNull: false,
@@ -38,6 +39,6 @@ module.exports = {
   },
 
   down: (queryInterface) => {
-    return queryInterface.dropTable('buy_orders');
+    return queryInterface.dropTable('services_buyorders');
   },
 };

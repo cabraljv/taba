@@ -58,6 +58,7 @@ body: {
   latitude:Double,
   longitude:Double,
   branch:Integer,
+  description:String
 },
 headers: {
   authorization:String
@@ -71,4 +72,142 @@ Response
 }
 ```
 
+---
+### Service
+#### create
+`/service` - **POST**
+
+Send
+```javascript
+body: {
+  title:String,
+  description:String,
+  value:Integer,
+  category:Integer,
+},
+headers: {
+  authorization:String
+}
+```
+
+Response
+```javascript
+{
+  response:String
+}
+```
+
+<br />
+
+#### index
+`/service/:establishmentId` - **GET**
+
+Send
+```javascript
+params: {
+  establishmentId:Integer,
+},
+headers: {
+  authorization:String
+}
+```
+
+Response
+```javascript
+[
+  {
+    title:String,
+    description:String,
+    value:Double,
+    offer: {
+      discount:Double
+    },
+    category: {
+      name:String
+    }
+  }
+]
+```
+
+---
+
+### BuyOrder
+#### create
+`/order` - **POST**
+
+Send
+```javascript
+body: {
+  services:[ id:Integer,... ]
+},
+headers: {
+  authorization:String
+}
+```
+
+Response
+```javascript
+{
+  response:String
+}
+```
+
+<br />
+
+#### index
+`/order` - **GET**
+
+Send
+```javascript
+
+headers: {
+  authorization:String
+}
+```
+
+Response
+```javascript
+[
+  {
+    id:Integer,
+    confirmed:Boolean,
+    services: [
+      {
+        title:String,
+        id:Integer
+      }
+    ]
+  },
+]
+```
+
+#### show
+`/order/:orderId` - **GET**
+
+Send
+```javascript
+{
+  params:{
+    orderId:Integer
+  }
+  headers: {
+    authorization:String
+  }
+}
+
+```
+
+Response
+```javascript
+{
+  id:Integer,
+  confirmed:Boolean,
+  services: [
+    {
+      title:String,
+      id:Integer
+    }
+  ]
+}
+```
 

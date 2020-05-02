@@ -4,20 +4,24 @@ class Service extends Model {
   static init(sequelize) {
     super.init(
       {
-        name: Sequelize.STRING,
+        title: Sequelize.STRING,
         description: Sequelize.STRING,
         value: Sequelize.DOUBLE,
-        points: Sequelize.INTEGER,
+        points: Sequelize.VIRTUAL,
       },
       {
         sequelize,
       }
     );
-
+    this.points = this.value * 0.1;
     return this;
   }
 
   static associate(models) {
+    this.hasOne(models.Offer, {
+      foreignKey: 'service_id',
+      as: 'offer',
+    });
     this.belongsTo(models.Establishment, {
       foreignKey: 'establishment_id',
       as: 'establishment',
@@ -27,6 +31,12 @@ class Service extends Model {
       as: 'category',
     });
     this.belongsTo(models.Region, { foreignKey: 'pic_id', as: 'picture' });
+
+    this.belongsToMany(models.BuyOrder, {
+      through: 'services_buyorders',
+      foreignKey: 'service_id',
+      as: 'buy_orders',
+    });
   }
 }
 

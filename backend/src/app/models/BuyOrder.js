@@ -5,6 +5,7 @@ class BuyOrder extends Model {
     super.init(
       {
         confirmed: Sequelize.BOOLEAN,
+        canceled_at: Sequelize.DATE,
       },
       {
         sequelize,
@@ -20,9 +21,10 @@ class BuyOrder extends Model {
       foreignKey: 'user_id',
       as: 'user',
     });
-    this.belongsTo(models.Service, {
-      foreignKey: 'service_id',
-      as: 'service',
+    this.belongsToMany(models.Service, {
+      through: 'services_buyorders',
+      foreignKey: 'order_id',
+      as: 'services',
     });
   }
 }

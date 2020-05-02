@@ -7,6 +7,7 @@ class Establishment extends Model {
         name: Sequelize.STRING,
         latitude: Sequelize.DOUBLE,
         longitude: Sequelize.DOUBLE,
+        description: Sequelize.STRING,
       },
       {
         sequelize,

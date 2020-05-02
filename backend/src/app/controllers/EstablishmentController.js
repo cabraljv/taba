@@ -9,6 +9,7 @@ class EstablishmentController {
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
+      description: Yup.string().required(),
       latitude: Yup.number().required(),
       longitude: Yup.number().required(),
       branch: Yup.number().required(),
@@ -22,7 +23,7 @@ class EstablishmentController {
     if (!user.provider) {
       return res.status(400).json({ error: 'User as not a provider' });
     }
-    const { name, latitude, longitude, branch } = req.body;
+    const { name, latitude, longitude, branch, description } = req.body;
     const region = await Region.findOne({
       min_latitude: {
         [Op.gt]: latitude,
@@ -37,7 +38,6 @@ class EstablishmentController {
         [Op.lt]: longitude,
       },
     });
-    console.log(region);
     if (!region) {
       return res.status(400).json({ error: 'Region is not used' });
     }
@@ -61,6 +61,7 @@ class EstablishmentController {
       branch_id: branch,
       region: region.id,
       owner_id: req.userId,
+      description,
     });
     return res.json({ response: `${name} created` });
   }
