@@ -55,9 +55,9 @@ Send
 ```javascript
 body: {
   name:String,
-  latitude:Double,
-  longitude:Double,
-  branch:Integer,
+  latitude:Number,
+  longitude:Number,
+  branch:Number,
   description:String
 },
 headers: {
@@ -82,8 +82,8 @@ Send
 body: {
   title:String,
   description:String,
-  value:Integer,
-  category:Integer,
+  value:Number,
+  category:Number,
 },
 headers: {
   authorization:String
@@ -105,7 +105,7 @@ Response
 Send
 ```javascript
 params: {
-  establishmentId:Integer,
+  establishmentId:Number,
 },
 headers: {
   authorization:String
@@ -118,9 +118,9 @@ Response
   {
     title:String,
     description:String,
-    value:Double,
+    value:Number,
     offer: {
-      discount:Double
+      discount:Number
     },
     category: {
       name:String
@@ -138,7 +138,7 @@ Response
 Send
 ```javascript
 body: {
-  services:[ id:Integer,... ]
+  services:[ id:Number,... ]
 },
 headers: {
   authorization:String
@@ -169,12 +169,12 @@ Response
 ```javascript
 [
   {
-    id:Integer,
+    id:Number,
     confirmed:Boolean,
     services: [
       {
         title:String,
-        id:Integer
+        id:Number
       }
     ]
   },
@@ -188,7 +188,7 @@ Send
 ```javascript
 {
   params:{
-    orderId:Integer
+    orderId:Number
   }
   headers: {
     authorization:String
@@ -200,14 +200,50 @@ Send
 Response
 ```javascript
 {
-  id:Integer,
+  id:Number,
   confirmed:Boolean,
   services: [
     {
       title:String,
-      id:Integer
+      id:Number
     }
   ]
 }
 ```
 
+---
+
+### Geolocation
+
+
+#### index
+`/geo` - **GET**
+> 5km area search
+>
+Send
+```javascript
+{
+  query:{
+    latitude:Number,
+    Longitude:Number
+  }
+  headers: {
+    authorization:String
+  }
+}
+```
+
+Response
+```javascript
+[
+  {
+    id:Number
+    name:String,
+    latitude:Number,
+    longitude: Number,
+    logo:{
+      url:String
+    }
+  },
+]
+```

@@ -13,7 +13,6 @@ class Establishment extends Model {
         sequelize,
       }
     );
-
     return this;
   }
 
