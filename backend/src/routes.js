@@ -24,6 +24,7 @@ routes.post('/session', SessionController.store);
 routes.use(authMiddleware);
 
 routes.get('/user', UserController.show);
+routes.put('/user', UserController.update);
 
 routes.post('/order', BuyOrderController.store);
 routes.get('/order', BuyOrderController.index);

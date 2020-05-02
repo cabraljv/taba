@@ -24,6 +24,29 @@ Response
 }
 ```
 
+#### Update
+`/user` - **PUT**
+
+Send
+```javascript
+{
+  email:String,
+  password:String,
+  confirmPassword:String,
+  oldPassword:String,
+  name:String,
+  avatar:File
+}
+```
+>Only fields that will be updated
+
+Response
+```javascript
+{
+  response:String
+}
+```
+
 ---
 ### Session
 #### Login
