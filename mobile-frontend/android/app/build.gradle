@@ -215,6 +215,7 @@ dependencies {
     }
 
     implementation project(':react-native-linear-gradient')
+    implementation project(':@react-native-mapbox-gl_maps')
 }
 
 // Run this once to be able to run the application with BUCK

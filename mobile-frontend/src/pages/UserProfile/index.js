@@ -6,7 +6,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import BackButton from '../../components/BackButton';
 import { UserInfo } from './styles';
 
-import avatar from '../../tmp/avatar.png';
+import avatar from '../../../tmp/avatar.png';
 
 const SignIn = () => {
   return (
