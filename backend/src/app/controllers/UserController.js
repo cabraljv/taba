@@ -4,6 +4,20 @@ import User from '../models/User';
 import File from '../models/File';
 
 class UserController {
+  async show(req, res) {
+    const user = await User.findByPk(req.userId, {
+      attributes: ['name', 'email', 'points', 'provider'],
+      include: [
+        {
+          model: File,
+          attributes: ['path', 'url'],
+          as: 'avatar',
+        },
+      ],
+    });
+    return res.json(user);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),

@@ -21,7 +21,7 @@ module.exports = {
         allowNull: false,
       },
       points: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false,
         defaultValue: 0,
       },

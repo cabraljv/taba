@@ -16,11 +16,14 @@ const routes = new Router();
 const upload = multer(multerConfig);
 
 routes.get('/', (req, res) => res.json({ ok: true }));
+
 routes.post('/user', upload.single('avatar'), UserController.store);
 
 routes.post('/session', SessionController.store);
 
 routes.use(authMiddleware);
+
+routes.get('/user', UserController.show);
 
 routes.post('/order', BuyOrderController.store);
 routes.get('/order', BuyOrderController.index);
