@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import MapboxGL from '@react-native-mapbox-gl/maps';
-import { StatusBar, View, Text } from 'react-native';
-import Geolocation from '@react-native-community/geolocation';
-import { MAPBOX_KEY } from 'react-native-dotenv';
 import { Container, MapContainer } from './styles';
+import MapboxGL from '@react-native-mapbox-gl/maps';
+import { StatusBar } from 'react-native';
+import Geolocation from '@react-native-community/geolocation';
+import 'dotenv/config';
 
 MapboxGL.setAccessToken(MAPBOX_KEY);
 MapboxGL.setConnected(true);

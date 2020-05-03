@@ -12,7 +12,8 @@ import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.mapbox.rctmgl.RCTMGLPackage;
-import com.BV.LinearGradient.LinearGradientPackage; // react-community-linear-gradient 
+import com.BV.LinearGradient.LinearGradientPackage; // react-community-linear-gradient
+import com.rnfs.RNFSPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -30,6 +31,7 @@ public class MainApplication extends Application implements ReactApplication {
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
           packages.add(new LinearGradientPackage());
+          packages.add(new RNFSPackage());
           return packages;
         }
 
