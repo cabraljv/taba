@@ -47,6 +47,7 @@ class EstablishmentController {
         name,
         latitude,
         longitude,
+        description,
         branch_id: branch,
         region_id: region.id,
         owner_id: req.userId,
