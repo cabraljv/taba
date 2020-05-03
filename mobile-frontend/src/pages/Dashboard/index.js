@@ -1,22 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import MapboxGL from '@react-native-mapbox-gl/maps';
+import { StatusBar, View, Text } from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
-import { StatusBar } from 'react-native';
-import { Container, MapContainer, EstablishmentPin, EstablishmentImage } from './styles';
+import { MAPBOX_KEY } from 'react-native-dotenv';
+import { Container, MapContainer } from './styles';
 
-import api from '../../services/api'
+import api from '../../services/api';
 
-MapboxGL.setAccessToken('pk.eyJ1IjoiY2FicmFsanYiLCJhIjoiY2s5cTd5Y3lnMGc0cjNzcnQwa2dxZmJ0MCJ9.Zbkoo7WCSnQprd0cchZd8Q');
+MapboxGL.setAccessToken(MAPBOX_KEY);
 MapboxGL.setConnected(true);
+
 const Dashboard = () => {
   const [coordinates, setCoordinates] = useState([-49.6446024, -27.2108001]);
   const [establishments, setEstablishments] = useState([]);
 
-  function listEstablishments() {
+  const loadEstablishments = useCallback(() => {
     api
-      .get('/geo', { headers })
-      .then(response => setEstablishments(response.data));
-  }
+      .get('/geo', {
+        query: {
+          longitude: coordinates[0],
+          latitude: coordinates[1],
+        },
+        headers: {
+          authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTg4NTQ0MDg0LCJleHAiOjE1ODkxNDg4ODR9.1g3OkXLyblvKpycwdjh2azHgGS7x_qTQvOXvh6CR6Fg'
+        }
+      })
+      .then(response => setEstablishments(response.data))
+  });
 
   useEffect(() => {
     MapboxGL.setTelemetryEnabled(true);
@@ -28,7 +38,7 @@ const Dashboard = () => {
       { enableHighAccuracy: true, timeout: 1000, maximumAge: 1000 }
     );
 
-    //listEstablishments()
+    loadEstablishments();
   }, []);
 
   return (
