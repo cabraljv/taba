@@ -107,6 +107,7 @@ body: {
   description:String,
   value:Number,
   category:Number,
+  minutes:Number,
 },
 headers: {
   authorization:String
@@ -142,6 +143,7 @@ Response
     title:String,
     description:String,
     value:Number,
+    minutes:Number,
     offer: {
       discount:Number
     },
@@ -154,17 +156,22 @@ Response
 
 ---
 
-### BuyOrder
-#### create
-`/order` - **POST**
+### AppointmentOrder
+
+#### store
+`/appointment` - **POST**
+
 
 Send
 ```javascript
-body: {
-  services:[ id:Number,... ]
-},
-headers: {
-  authorization:String
+{
+  body:{
+    service_id:Number,
+    start_date:Date
+  }
+  headers: {
+    authorization:String
+  }
 }
 ```
 
@@ -175,62 +182,59 @@ Response
 }
 ```
 
-<br />
+---
 
-#### index
-`/order` - **GET**
+### Confirmation
 
-Send
-```javascript
+#### store
+`/confirm/:appointmentId` - **POST**
 
-headers: {
-  authorization:String
-}
-```
-
-Response
-```javascript
-[
-  {
-    id:Number,
-    confirmed:Boolean,
-    services: [
-      {
-        title:String,
-        id:Number
-      }
-    ]
-  },
-]
-```
-
-#### show
-`/order/:orderId` - **GET**
+> Establishment owner confirm appointment
 
 Send
 ```javascript
 {
   params:{
-    orderId:Number
+    appointmentId:Number,
   }
   headers: {
     authorization:String
   }
 }
-
 ```
 
 Response
 ```javascript
 {
-  id:Number,
-  confirmed:Boolean,
-  services: [
-    {
-      title:String,
-      id:Number
-    }
-  ]
+  response:String
+}
+```
+---
+
+### Schedule
+
+#### store
+`/schedule` - **POST**
+
+> Establishment create a new schedule
+
+Send
+```javascript
+{
+  body:{
+    start_date:Date,
+    end_date: Date
+  }
+  headers: {
+    authorization:String
+  }
+}
+```
+
+Response
+```javascript
+{
+  response:String
 }
 ```
 
