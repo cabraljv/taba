@@ -1,18 +1,19 @@
 import Sequelize, { Model } from 'sequelize';
 
-class BuyOrder extends Model {
+class AppointmentOrder extends Model {
   static init(sequelize) {
     super.init(
       {
         confirmed: Sequelize.BOOLEAN,
+        start_date: Sequelize.DATE,
+        end_date: Sequelize.DATE,
         canceled_at: Sequelize.DATE,
       },
       {
         sequelize,
-        tableName: 'buy_orders',
+        tableName: 'appointment_orders',
       }
     );
-
     return this;
   }
 
@@ -21,12 +22,15 @@ class BuyOrder extends Model {
       foreignKey: 'user_id',
       as: 'user',
     });
-    this.belongsToMany(models.Service, {
-      through: 'services_buyorders',
-      foreignKey: 'order_id',
-      as: 'services',
+    this.belongsTo(models.Service, {
+      foreignKey: 'service_id',
+      as: 'service',
+    });
+    this.belongsTo(models.Schedule, {
+      foreignKey: 'schedule_id',
+      as: 'schedule',
     });
   }
 }
 
-export default BuyOrder;
+export default AppointmentOrder;

@@ -45,6 +45,7 @@ class ServiceController {
       description: Yup.string().required(),
       value: Yup.number().required(),
       category: Yup.number().required(),
+      minutes: Yup.number().required(),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -54,7 +55,7 @@ class ServiceController {
     if (!user.provider) {
       return res.status(400).json({ error: 'User as not a provider' });
     }
-    const { description, title, value, category } = req.body;
+    const { description, title, value, category, minutes } = req.body;
     const establishment_check = await Establishment.findOne({
       where: {
         owner_id: req.userId,
@@ -77,6 +78,7 @@ class ServiceController {
       value,
       category_id: category,
       establishment_id: establishment_check.id,
+      minutes,
     });
     return res.json({ response: 'Service successfully created' });
   }

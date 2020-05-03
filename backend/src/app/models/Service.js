@@ -8,6 +8,7 @@ class Service extends Model {
         description: Sequelize.STRING,
         value: Sequelize.DOUBLE,
         points: Sequelize.VIRTUAL,
+        minutes: Sequelize.INTEGER,
       },
       {
         sequelize,
@@ -31,12 +32,6 @@ class Service extends Model {
       as: 'category',
     });
     this.belongsTo(models.Region, { foreignKey: 'pic_id', as: 'picture' });
-
-    this.belongsToMany(models.BuyOrder, {
-      through: 'services_buyorders',
-      foreignKey: 'service_id',
-      as: 'buy_orders',
-    });
   }
 }
 

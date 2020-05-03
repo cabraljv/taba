@@ -9,9 +9,10 @@ import Category from '../app/models/Category';
 import File from '../app/models/File';
 import Offer from '../app/models/Offer';
 import Service from '../app/models/Service';
-import BuyOrder from '../app/models/BuyOrder';
 import Region from '../app/models/Region';
 import Establishment from '../app/models/Establishment';
+import Schedule from '../app/models/Schedule';
+import AppointmentOrder from '../app/models/AppointmentOrder';
 
 const models = [
   File,
@@ -22,7 +23,8 @@ const models = [
   Offer,
   User,
   Service,
-  BuyOrder,
+  Schedule,
+  AppointmentOrder,
 ];
 
 class Database {

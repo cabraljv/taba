@@ -1,21 +1,24 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('buy_orders', {
+    return queryInterface.createTable('schedules', {
       id: {
         type: Sequelize.INTEGER,
         alloNull: false,
         primaryKey: true,
         autoIncrement: true,
       },
-      confirmed: {
-        type: Sequelize.BOOLEAN,
+      start_date: {
+        type: Sequelize.DATE,
         allowNull: false,
-        defaultValue: false,
       },
-      user_id: {
+      end_date: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      establishment_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'users',
+          model: 'establishments',
           key: 'id',
         },
         onUpdate: 'CASCADE',
@@ -38,6 +41,6 @@ module.exports = {
   },
 
   down: (queryInterface) => {
-    return queryInterface.dropTable('buy_orders');
+    return queryInterface.dropTable('schedules');
   },
 };
