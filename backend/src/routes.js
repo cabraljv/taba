@@ -45,5 +45,6 @@ routes.post(
   upload.single('logo'),
   EstablishmentController.store
 );
+routes.get('/establishment/:establishmentId', EstablishmentController.show);
 
 export default routes;

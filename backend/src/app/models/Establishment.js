@@ -18,7 +18,11 @@ class Establishment extends Model {
 
   static associate(models) {
     this.belongsTo(models.File, { foreignKey: 'logo_id', as: 'logo' });
-    this.belongsTo(models.User, { foreignKey: 'owner_id', as: 'owner' });
+    this.hasMany(models.Service, {
+      foreignKey: 'establishment_id',
+      as: 'services',
+    });
+    this.belongsTo(models.User, { foreignKey: 'user_id', as: 'owner' });
     this.belongsTo(models.Region, { foreignKey: 'region_id', as: 'region' });
     this.belongsTo(models.Branch, { foreignKey: 'branch_id', as: 'branch' });
   }

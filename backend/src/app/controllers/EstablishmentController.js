@@ -4,8 +4,48 @@ import Establishment from '../models/Establishment';
 import User from '../models/User';
 import File from '../models/File';
 import Region from '../models/Region';
+import Service from '../models/Service';
+import AppointmentOrder from '../models/AppointmentOrder';
 
 class EstablishmentController {
+  async show(req, res) {
+    const establishment = await Establishment.findByPk(
+      req.params.establishmentId,
+      {
+        attributes: ['name', 'description'],
+        include: [
+          {
+            model: File,
+            as: 'logo',
+            attributes: ['path', 'url'],
+          },
+          {
+            model: Service,
+            as: 'services',
+            attributes: ['title', 'description', 'points', 'value', 'id'],
+          },
+        ],
+      }
+    );
+    const appointments = await AppointmentOrder.findAll({
+      where: {
+        confirmed: true,
+      },
+      include: [
+        {
+          model: Service,
+          as: 'service',
+          where: {
+            establishment_id: req.params.establishmentId,
+          },
+        },
+      ],
+    });
+    establishment.dataValues.sells = appointments.length;
+
+    return res.json(establishment);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
