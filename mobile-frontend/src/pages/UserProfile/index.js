@@ -4,7 +4,7 @@ import { View, Text, Image } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 import BackButton from '../../components/BackButton';
-import { UserInfo } from './styles';
+import { UserInfo, Avatar } from './styles';
 
 import avatar from '../../../tmp/avatar.png';
 
@@ -15,7 +15,7 @@ const SignIn = () => {
       <Text>Meu Perfil</Text>
 
       <UserInfo>
-        <Image width={98} source={avatar} />
+        <Avatar width={98} source={avatar} />
 
         <View>
           <Text>Nome Completo</Text>
