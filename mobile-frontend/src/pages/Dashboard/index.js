@@ -3,9 +3,8 @@ import MapboxGL from '@react-native-mapbox-gl/maps';
 import { StatusBar } from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
 import { Container, MapContainer } from './styles';
-import 'dotenv/config';
 
-MapboxGL.setAccessToken(process.env.MAPBOX_KEY);
+MapboxGL.setAccessToken("A KEY VEM AQUI");
 MapboxGL.setConnected(true);
 
 const Dashboard = () => {
