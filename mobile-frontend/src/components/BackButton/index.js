@@ -1,11 +1,11 @@
 import React from 'react';
-import { Text } from 'react-native';
 
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import { Container } from './styles';
 
 const BackButton = () => (
   <Container>
-    <Text />
+    <AntDesign name="left" size={20} color="#fff" />
   </Container>
 );
 
