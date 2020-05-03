@@ -33,7 +33,7 @@ class ServiceController {
           attributes: ['name'],
         },
       ],
-      attributes: ['title', 'description', 'value'],
+      attributes: ['title', 'description', 'value', 'minutes'],
     });
 
     return res.json(services);

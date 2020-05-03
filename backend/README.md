@@ -182,6 +182,26 @@ Response
 }
 ```
 
+#### index
+`/appointment` - **GET**
+
+
+Send
+```javascript
+{
+  headers: {
+    authorization:String
+  }
+}
+```
+
+Response
+```javascript
+{
+  appointments:Array
+}
+```
+
 ---
 
 ### Confirmation

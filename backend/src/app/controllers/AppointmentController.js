@@ -6,8 +6,58 @@ import { addMinutes, parseISO } from 'date-fns';
 import Service from '../models/Service';
 import Schedule from '../models/Schedule';
 import AppointmentOrder from '../models/AppointmentOrder';
+import Establishment from '../models/Establishment';
+import User from '../models/User';
 
 class AppointmentController {
+  async index(req, res) {
+    const establishment = await Establishment.findOne({
+      where: {
+        owner_id: req.userId,
+      },
+    });
+
+    if (establishment) {
+      const appointments = await AppointmentOrder.findAll({
+        include: [
+          {
+            model: User,
+            as: 'user',
+            attributes: ['name', 'email'],
+          },
+          {
+            model: Service,
+            as: 'service',
+            attributes: ['title'],
+          },
+        ],
+        where: {
+          canceled_at: null,
+          confirmed: false,
+          '$service.establishment_id$': establishment.id,
+        },
+        attributes: ['start_date'],
+      });
+
+      return res.json(appointments);
+    }
+
+    const appointments = await AppointmentOrder.findAll({
+      where: {
+        user_id: req.userId,
+      },
+      attributes: ['start_date'],
+      include: [
+        {
+          model: Service,
+          as: 'service',
+          attributes: ['title'],
+        },
+      ],
+    });
+    return res.json(appointments);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       service_id: Yup.number().required(),
@@ -46,6 +96,7 @@ class AppointmentController {
       where: {
         schedule_id: schedule.id,
         canceled_at: null,
+        confirmed: false,
         [Op.or]: [
           {
             start_date: {
@@ -78,17 +129,6 @@ class AppointmentController {
       user_id: req.userId,
     });
     return res.json({ response: 'Appointment order successful created' });
-  }
-
-  async update(req, res) {
-    const schema = Yup.object().shape({
-      id: Yup.number().required(),
-      confirmed: Yup.boolean().required(),
-    });
-    if (!(await schema.isValid(req.body)))
-      return res.status(400).json({ error: 'Invalid fields' });
-
-    return res.json();
   }
 }
 

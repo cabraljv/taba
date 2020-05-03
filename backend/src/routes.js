@@ -12,6 +12,7 @@ import ScheduleController from './app/controllers/ScheduleController';
 import ServiceController from './app/controllers/ServicesController';
 import GeolocationController from './app/controllers/GeolocationController';
 import AppointmentController from './app/controllers/AppointmentController';
+import ConfirmationController from './app/controllers/ConfirmationController';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -30,6 +31,9 @@ routes.put('/user', UserController.update);
 routes.post('/schedule', ScheduleController.store);
 
 routes.post('/appointment', AppointmentController.store);
+routes.get('/appointment', AppointmentController.index);
+
+routes.post('/confirmation/:appointmentId', ConfirmationController.store);
 
 routes.post('/service', ServiceController.store);
 routes.get('/service/:establishment', ServiceController.index);
