@@ -12,7 +12,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     MapboxGL.setTelemetryEnabled(false);
-    Geolocation.getCurrentPosition((latitude, longitude) => {
+    Geolocation.getCurrentPosition(({ coords: { latitude, longitude } }) => {
       setCoordinates([latitude, longitude]);
     });
   }, []);
