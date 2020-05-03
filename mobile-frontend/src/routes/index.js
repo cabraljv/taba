@@ -20,7 +20,8 @@ const AuthRoutes = () => (
       headerShown: false,
       cardStyle: { backgroundColor: '#dedede' },
     }}
-    initialRouteName="Dashboard">
+    initialRouteName="Dashboard"
+  >
     <Auth.Screen name="UserProfile" component={UserProfile} />
     <Auth.Screen name="EstablishmentProfile" component={EstablishmentProfile} />
 
