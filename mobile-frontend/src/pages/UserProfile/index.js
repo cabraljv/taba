@@ -6,7 +6,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import BackButton from '../../components/BackButton';
 import { UserInfo, Avatar } from './styles';
 
-import avatar from '../../../tmp/avatar.png';
+import api from '../../services/api';
 
 const SignIn = () => {
   return (
@@ -15,7 +15,9 @@ const SignIn = () => {
       <Text>Meu Perfil</Text>
 
       <UserInfo>
-        <Avatar width={98} source={avatar} />
+        <Avatar width={98} source={{
+          uri: 'https://api.adorable.io/avatars/285/abott@adorable.png',
+        }} />
 
         <View>
           <Text>Nome Completo</Text>

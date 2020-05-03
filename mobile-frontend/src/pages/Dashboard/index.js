@@ -1,13 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import MapboxGL from '@react-native-mapbox-gl/maps';
-import { StatusBar } from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
-import { Container, MapContainer } from './styles';
+import { StatusBar } from 'react-native';
+import { Container, MapContainer, EstablishmentPin, EstablishmentImage } from './styles';
 
-MapboxGL.setAccessToken("pk.eyJ1IjoiY2FicmFsanYiLCJhIjoiY2s5cTd5Y3lnMGc0cjNzcnQwa2dxZmJ0MCJ9.Zbkoo7WCSnQprd0cchZd8Q");
+import api from '../../services/api'
+
+MapboxGL.setAccessToken('pk.eyJ1IjoiY2FicmFsanYiLCJhIjoiY2s5cTd5Y3lnMGc0cjNzcnQwa2dxZmJ0MCJ9.Zbkoo7WCSnQprd0cchZd8Q');
 MapboxGL.setConnected(true);
 const Dashboard = () => {
   const [coordinates, setCoordinates] = useState([-49.6446024, -27.2108001]);
+  const [establishments, setEstablishments] = useState([]);
+
+  function listEstablishments() {
+    api
+      .get('/geo', { headers })
+      .then(response => setEstablishments(response.data));
+  }
 
   useEffect(() => {
     MapboxGL.setTelemetryEnabled(true);
@@ -18,6 +27,8 @@ const Dashboard = () => {
       (error) => console.log(error),
       { enableHighAccuracy: true, timeout: 1000, maximumAge: 1000 }
     );
+
+    //listEstablishments()
   }, []);
 
   return (
@@ -34,23 +45,19 @@ const Dashboard = () => {
         >
           <MapboxGL.Camera centerCoordinate={coordinates} zoomLevel={16} />
           <MapboxGL.UserLocation />
-          <MapboxGL.PointAnnotation
-            id="teste"
-            coordinate={[-43.008232, -20.572046]}
-          >
-            <View
-              style={{
-                width: 50,
-                height: 30,
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: 'blue',
-                borderRadius: 15,
-              }}
+
+          {establishments.map(establishment => (
+            <MapboxGL.PointAnnotation
+              id={establishment.id}
+              coordinate={[establishment.longitude, establishment.latitude]}
             >
-              <Text>Teste</Text>
-            </View>
-          </MapboxGL.PointAnnotation>
+              <EstablishmentPin>
+                <EstablishmentImage source={{
+                  uri: establishment.logo.url,
+                }} />
+              </EstablishmentPin>
+            </MapboxGL.PointAnnotation>
+          ))}
         </MapboxGL.MapView>
       </MapContainer>
     </Container>

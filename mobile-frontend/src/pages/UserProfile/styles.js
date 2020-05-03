@@ -5,5 +5,5 @@ export const UserInfo = styled.View`
 `;
 
 export const Avatar = styled.Image`
-  border-radius: 50%;
+  border-radius: 100px;
 `;
