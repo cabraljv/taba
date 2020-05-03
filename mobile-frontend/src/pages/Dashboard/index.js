@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Container, MapContainer } from './styles';
 import MapboxGL from '@react-native-mapbox-gl/maps';
 import { StatusBar } from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
-import 'dotenv/config';
+import { Container, MapContainer } from './styles';
 
-MapboxGL.setAccessToken(MAPBOX_KEY);
+MapboxGL.setAccessToken("pk.eyJ1IjoiY2FicmFsanYiLCJhIjoiY2s5cTd5Y3lnMGc0cjNzcnQwa2dxZmJ0MCJ9.Zbkoo7WCSnQprd0cchZd8Q");
 MapboxGL.setConnected(true);
 const Dashboard = () => {
   const [coordinates, setCoordinates] = useState([-49.6446024, -27.2108001]);
