@@ -7,8 +7,7 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint .",
-    "postinstall": "node_modules/.bin/rn-nodeify --install fs --hack"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@react-native-community/geolocation": "^2.0.2",
