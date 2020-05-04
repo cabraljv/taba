@@ -7,11 +7,14 @@ import BackButton from '../../components/BackButton';
 import { UserInfo, Avatar } from './styles';
 
 import api from '../../services/api';
+import { useAuth } from '../../hooks/auth';
 
-const SignIn = () => {
+const UserProfile = ({ navigation }) => {
+  const { user } = useAuth();
+
   return (
     <LinearGradient colors={['#B8DFFF', '#FFC28D']} style={{ flex: 1 }}>
-      <BackButton />
+      <BackButton onPress={() => navigation.goBack()}/>
       <Text>Meu Perfil</Text>
 
       <UserInfo>
@@ -20,12 +23,12 @@ const SignIn = () => {
         }} />
 
         <View>
-          <Text>Nome Completo</Text>
-          <Text>Usuario</Text>
+          <Text>{user.name}</Text>
+          <Text>{user.email}</Text>
         </View>
       </UserInfo>
     </LinearGradient>
   );
 };
 
-export default SignIn;
+export default UserProfile;

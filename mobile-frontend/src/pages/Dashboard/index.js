@@ -14,22 +14,22 @@ import {
 } from './styles';
 
 import api from '../../services/api';
-
-import avatar from '../../../tmp/avatar.png'
+import { useAuth } from '../../hooks/auth';
 
 MapboxGL.setAccessToken(MAPBOX_KEY);
 MapboxGL.setConnected(true);
 
-const Dashboard = () => {
+const Dashboard = ({ navigation }) => {
   const [coordinates, setCoordinates] = useState([0, 0]);
   const [establishments, setEstablishments] = useState([]);
+
+  const { token, user } = useAuth();
 
   const loadEstablishments = async () => {
     try {
       const response = await api.get(`/geo?latitude=${coordinates[1]}&longitude=${coordinates[0]}`, {
         headers: {
-          authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTg4NTY3OTEyLCJleHAiOjE1ODkxNzI3MTJ9.5egmoX1QdMku3ww8lF5l7IdQ6-RGmdec4D1PXkHHp-M',
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTg4NjExNDQxLCJleHAiOjE1ODkyMTYyNDF9.WvV0zjyjJleoBSrQ99ORQ4QyRgOo1rR-PrN4BF58rgw',
         },
       });
 
@@ -88,11 +88,7 @@ const Dashboard = () => {
           }
         </MapboxGL.MapView>
       </MapContainer>
-
-      {
-        establishments.length !== 0 &&
-        (<ActionMenu avatar={avatar} />)
-      }
+      <ActionMenu user={user} navigation={navigation} />
     </Container>
   );
 };
