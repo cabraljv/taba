@@ -1,5 +1,6 @@
 package com.taba;
 
+import androidx.multidex.MultiDexApplication;
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
@@ -15,7 +16,7 @@ import com.mapbox.rctmgl.RCTMGLPackage;
 import com.BV.LinearGradient.LinearGradientPackage; // react-community-linear-gradient
 import com.rnfs.RNFSPackage;
 
-public class MainApplication extends Application implements ReactApplication {
+public class MainApplication extends MultiDexApplication implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =
       new ReactNativeHost(this) {
