@@ -3,10 +3,20 @@ import MapboxGL from '@react-native-mapbox-gl/maps';
 import { StatusBar } from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
 import { MAPBOX_KEY } from 'react-native-dotenv';
-import { Container, MapContainer, EstablishmentPin, EstablishmentImage } from './styles';
+
+import ActionMenu from '../../components/ActionMenu';
+import ActionItem from '../../components/ActionItem';
+
+import {
+  Container,
+  MapContainer,
+  EstablishmentPin,
+  EstablishmentImage,
+} from './styles';
 
 import api from '../../services/api';
 
+import avatar from '../../../tmp/avatar.png'
 
 MapboxGL.setAccessToken(MAPBOX_KEY);
 MapboxGL.setConnected(true);
@@ -23,8 +33,6 @@ const Dashboard = () => {
           'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTg4NTY3OTEyLCJleHAiOjE1ODkxNzI3MTJ9.5egmoX1QdMku3ww8lF5l7IdQ6-RGmdec4D1PXkHHp-M',
         },
       });
-
-      console.log(response.data);
 
       setEstablishments(response.data);
     } catch (error) {
@@ -47,7 +55,6 @@ const Dashboard = () => {
     if (coordinates !== [0, 0]) {
       loadEstablishments();
     }
-
   }, [coordinates])
 
   return (
@@ -80,10 +87,13 @@ const Dashboard = () => {
               </MapboxGL.PointAnnotation>)
             })
           }
-
-
         </MapboxGL.MapView>
       </MapContainer>
+
+      {
+        establishments.length !== 0 &&
+          (<ActionMenu avatar={avatar} />)
+      }
     </Container>
   );
 };
