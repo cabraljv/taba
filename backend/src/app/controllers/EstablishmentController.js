@@ -12,7 +12,7 @@ class EstablishmentController {
     const establishment = await Establishment.findByPk(
       req.params.establishmentId,
       {
-        attributes: ['name', 'description'],
+        attributes: ['id', 'name', 'description'],
         include: [
           {
             model: File,
