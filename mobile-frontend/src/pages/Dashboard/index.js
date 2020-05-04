@@ -30,14 +30,10 @@ const Dashboard = () => {
       const response = await api.get(`/geo?latitude=${coordinates[1]}&longitude=${coordinates[0]}`, {
         headers: {
           authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTg4NTY3OTEyLCJleHAiOjE1ODkxNzI3MTJ9.5egmoX1QdMku3ww8lF5l7IdQ6-RGmdec4D1PXkHHp-M',
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTg4NTY3OTEyLCJleHAiOjE1ODkxNzI3MTJ9.5egmoX1QdMku3ww8lF5l7IdQ6-RGmdec4D1PXkHHp-M',
         },
       });
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 92434ad4b5225255591759d93fc40431dd27542b
       setEstablishments(response.data);
     } catch (error) {
       console.log(error.response.data)
@@ -96,7 +92,7 @@ const Dashboard = () => {
 
       {
         establishments.length !== 0 &&
-          (<ActionMenu avatar={avatar} />)
+        (<ActionMenu avatar={avatar} />)
       }
     </Container>
   );
