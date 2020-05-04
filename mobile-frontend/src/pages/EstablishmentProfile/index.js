@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'react-native';
 
-import AsyncStorage from '@react-native-community/async-storage'
 import {
   Container,
   Header,
@@ -43,7 +42,7 @@ const EstablishmentProfile = () => {
   const [establishment, setEstablishment] = useState({});
 
   const getDataFromAPI = async () => {
-    const token = await AsyncStorage.getItem('@token');
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTg4Mzg2MTk4LCJleHAiOjE1ODg5OTA5OTh9.zRbL0hL590s8bO4S-I1SCB6NsPFUWZkXCtRNqQUy_rM';
     try {
       const response = await api({
         method: 'GET',

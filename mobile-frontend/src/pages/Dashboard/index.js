@@ -13,31 +13,30 @@ MapboxGL.setAccessToken(MAPBOX_KEY);
 MapboxGL.setConnected(true);
 
 const Dashboard = () => {
-  const [coordinates, setCoordinates] = useState([-49.6446024, -27.2108001]);
+  const [coordinates, setCoordinates] = useState([0, 0]);
   const [establishments, setEstablishments] = useState([]);
 
-  const loadEstablishments = useCallback(async () => {
-    const response = await api({
-      method: 'GET',
-      url: '/geo',
-      query: {
-        longitude: coordinates[0],
-        latitude: coordinates[1],
-      },
-      headers: {
-        authorization:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTg4NTQ0MDg0LCJleHAiOjE1ODkxNDg4ODR9.1g3OkXLyblvKpycwdjh2azHgGS7x_qTQvOXvh6CR6Fg',
-      },
-    });
+  const loadEstablishments = async () => {
+    try {
+      const response = await api.get(`/geo?latitude=${coordinates[1]}&longitude=${coordinates[0]}`, {
+        headers: {
+          authorization:
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTg4Mzg2MTk4LCJleHAiOjE1ODg5OTA5OTh9.zRbL0hL590s8bO4S-I1SCB6NsPFUWZkXCtRNqQUy_rM',
+        },
+      });
 
-    console.log(response);
+      console.log(response.data);
 
-    setEstablishments(response.data);
-  }, [coordinates]);
+      setEstablishments(response.data);
+    } catch (error) {
+      console.log(error.response.data)
+    }
+
+  };
 
   useEffect(() => {
     MapboxGL.setTelemetryEnabled(true);
-    Geolocation.watchPosition(
+    Geolocation.getCurrentPosition(
       ({ coords: { latitude, longitude } }) => {
         setCoordinates([longitude, latitude]);
       },
@@ -45,8 +44,14 @@ const Dashboard = () => {
       { enableHighAccuracy: true, timeout: 1000, maximumAge: 1000 }
     );
 
-    loadEstablishments();
+
   }, []);
+  useEffect(() => {
+    if (coordinates !== [0, 0]) {
+      loadEstablishments();
+    }
+
+  }, [coordinates])
 
   return (
     <Container>
