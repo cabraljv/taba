@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 
 import { StatusBar } from 'react-native';
+import * as Yup from 'yup';
+import { useAuth } from '../../hooks/auth';
+
 import {
   Container,
   Header,
@@ -15,8 +18,6 @@ import {
   ButtonText,
 } from './styles';
 
-import { useAuth } from '../../hooks/auth';
-
 import logo from '../../assets/images/logo.png';
 
 
@@ -28,12 +29,22 @@ const SignIn = () => {
 
   const handleSubmit = async () => {
     try {
+      const schema = Yup.object().shape({
+        email: Yup.string()
+          .required("E-mail obrigatório")
+          .email("Digite um E-mail válido"),
+        password: Yup.string()
+          .required("Senha obrigatória"),
+      });
+
+      await schema.validate({ email, password }, { abortEarly: false });
+
       await signIn({
         email,
         password,
       });
     } catch (error) {
-      console.log(error.response.data)
+      console.log(error)
     }
   }
   return (
