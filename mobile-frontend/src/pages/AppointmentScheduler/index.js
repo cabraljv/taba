@@ -29,14 +29,20 @@ const AppointmentScheduler = ({ route, navigation }) => {
 
   useEffect(() => {
     async function loadAvailableDays() {
-      console.log(providerId)
       try {
-        const response = await api.get(`/availible/days/${1}`, {
+        const response = await api.get(`/availible/days/${providerId}`, {
           headers: {
             authorization: `Bearer ${token}`,
           }
         });
-        setAvailableDays(response.data)
+        let array = response.data.map((day, index) => (
+          {
+            label: day,
+            value: `data-${index}`
+          }
+        ))
+
+        setAvailableDays(array)
       }
       catch(err) {
         console.log(err.response.data)
@@ -65,14 +71,7 @@ const AppointmentScheduler = ({ route, navigation }) => {
           <SelectText>Selecione o dia:</SelectText>
           <RNPickerSelect
             onValueChange={() => setDisable(false)}
-            items={
-              availableDays.map((day, index) => (
-                {
-                  label: day,
-                  value: `data-${index}`
-                }
-              ))
-            }
+            items={availableDays}
           />
         </PickerContainer>
 

@@ -130,7 +130,7 @@ export const PointsCount = styled.Text`
   font-family: 'Montserrat-Bold';
   font-size: 18px;
   color: #1cb3ff;
-  margin: auto 15px;
+  margin: auto 5px;
 `;
 export const ServiceBuyButton = styled.TouchableOpacity`
   width: 170px;
