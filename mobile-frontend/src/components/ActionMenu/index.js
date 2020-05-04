@@ -5,7 +5,9 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import { AnimatedView, Avatar, Menu } from './styles'
 
-const ActionMenu = ({ avatar }) => {
+import avatar from '../../../tmp/avatar.png'
+
+const ActionMenu = ({ user, navigation }) => {
   let open = false;
   const animation = new Animated.Value(0);
 
@@ -21,7 +23,9 @@ const ActionMenu = ({ avatar }) => {
     open = !open
   }, []);
 
-  const showItem = (index) => (
+  const showItem = (index) => {
+    console.log("Show item")
+    return(
     {
       transform: [
         {
@@ -35,7 +39,7 @@ const ActionMenu = ({ avatar }) => {
         },
       ],
     }
-  );
+  )};
 
   const rotateItem = {
     transform: [
@@ -50,13 +54,13 @@ const ActionMenu = ({ avatar }) => {
 
   return (
     <Container>
-      <TouchableWithoutFeedback>
+      <TouchableWithoutFeedback onPress={() => navigation.navigate('UserProfile')}>
         <AnimatedView style={showItem(2)}>
           <AntDesign name="home" size={24} />
         </AnimatedView>
       </TouchableWithoutFeedback>
 
-      <TouchableWithoutFeedback>
+      <TouchableWithoutFeedback onPress={() => navigation.navigate('Cart')}>
         <AnimatedView style={showItem(1)}>
           <AntDesign name="shoppingcart" size={24} />
         </AnimatedView>

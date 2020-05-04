@@ -20,7 +20,6 @@ import {
 
 import logo from '../../assets/images/logo.png';
 
-
 const SignIn = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -44,7 +43,7 @@ const SignIn = ({ navigation }) => {
         password,
       });
 
-      navigation.navigate('Dashboard');
+      navigation.push('Dashboard');
     } catch (error) {
       console.log(error)
     }

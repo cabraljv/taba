@@ -8,9 +8,9 @@ import UserProfile from '../pages/UserProfile';
 import EstablishmentProfile from '../pages/EstablishmentProfile';
 
 import Cart from '../pages/Cart';
-import Orders from '../pages/Orders';
 
 import Dashboard from '../pages/Dashboard';
+import AppointmentScheduler from '../pages/AppointmentScheduler';
 
 const Auth = createStackNavigator();
 
@@ -20,17 +20,17 @@ const AuthRoutes = () => (
       headerShown: false,
       cardStyle: { backgroundColor: '#dedede' },
     }}
-    initialRouteName="SignIn"
+    initialRouteName="AppointmentScheduler"
   >
     <Auth.Screen name="UserProfile" component={UserProfile} />
     <Auth.Screen name="EstablishmentProfile" component={EstablishmentProfile} />
     <Auth.Screen name="Cart" component={Cart} />
-    <Auth.Screen name="Orders" component={Orders} />
 
     <Auth.Screen name="SignIn" component={SignIn} />
     <Auth.Screen name="SignUp" component={SignUp} />
 
     <Auth.Screen name="Dashboard" component={Dashboard} />
+    <Auth.Screen name="AppointmentScheduler" component={AppointmentScheduler} />
   </Auth.Navigator>
 );
 

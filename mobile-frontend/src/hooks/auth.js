@@ -19,10 +19,7 @@ export const AuthProvider = ({ children }) => {
     loadStoragedData();
   }, []);
 
-
   const signIn = useCallback(async ({ email, password }) => {
-    console.log(email, password)
-
     const response = await api.post('/session', {
       email,
       password,
@@ -45,7 +42,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
+    <AuthContext.Provider value={{ token: data.token, user: data.user, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );
