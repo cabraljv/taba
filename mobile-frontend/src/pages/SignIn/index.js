@@ -15,23 +15,26 @@ import {
   ButtonText,
 } from './styles';
 
-import api from '../../services/api';
+import { useAuth } from '../../hooks/auth';
 
 import logo from '../../assets/images/logo.png';
 
 
 const SignIn = () => {
-
   const [email, setEmail] = useState('');
-  const [passwd, setPasswd] = useState('');
+  const [password, setPassword] = useState('');
+
+  const { signIn, user } = useAuth();
+
   const handleSubmit = async () => {
     try {
-      const response = await api.post('/user', { email, password: passwd })
-      console.log(response.data);
+      await signIn({
+        email,
+        password,
+      });
     } catch (error) {
       console.log(error.response.data)
     }
-
   }
   return (
     <Container>
@@ -44,7 +47,7 @@ const SignIn = () => {
           <FieldLabel>E-MAIL</FieldLabel>
           <TextField
             placeholder="Insira seu e-mail"
-            onChange={(text) => setPasswd(text.currentTarget)}
+            onChangeText={(text) => setEmail(text.trim())}
           />
         </FieldContainer>
         <FieldContainer>
@@ -52,7 +55,7 @@ const SignIn = () => {
           <TextField
             placeholder="Insira sua senha"
             secureTextEntry
-            onChange={(text) => setEmail(text.currentTarget)}
+            onChangeText={(text) => setPassword(text.trim())}
           />
         </FieldContainer>
       </FieldsArea>

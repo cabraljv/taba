@@ -5,6 +5,8 @@ import api from '../services/api';
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
+  const [data, setData] = useState({});
+
   useEffect(() => {
     async function loadStoragedData() {
       const [token, user] = await AsyncStorage.multiGet(['@Taba:token', '@Taba:user']);
@@ -12,18 +14,15 @@ export const AuthProvider = ({ children }) => {
       if(token[1] && user[1]) {
         setData({ token: token[1], user: JSON.parse(user[1]) });
       }
-
-      return {};
     }
 
     loadStoragedData();
   }, []);
 
-  const [data, setData] = useState(() => {
 
-  });
+  const signIn = useCallback(async ({ email, password }) => {
+    console.log(email, password)
 
-  const signIn = useCallback(async ({ email, password}) => {
     const response = await api.post('/session', {
       email,
       password,
@@ -40,7 +39,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const signOut = useCallback(async () => {
-    await AsyncStorage.multiRemove(['@GoBarber:user', '@GoBarber:token']);
+    await AsyncStorage.multiRemove(['@Taba:user', '@Taba:token']);
 
     setData({});
   }, []);

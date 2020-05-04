@@ -5,7 +5,6 @@ import Geolocation from '@react-native-community/geolocation';
 import { MAPBOX_KEY } from 'react-native-dotenv';
 
 import ActionMenu from '../../components/ActionMenu';
-import ActionItem from '../../components/ActionItem';
 
 import {
   Container,
