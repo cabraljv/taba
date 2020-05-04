@@ -83,6 +83,7 @@ class EstablishmentController {
     }
     if (req.file) {
       const logo = await File.create({ path: req.file.filename });
+      console.log(req.userId);
       await Establishment.create({
         name,
         latitude,

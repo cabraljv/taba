@@ -22,7 +22,7 @@ class Establishment extends Model {
       foreignKey: 'establishment_id',
       as: 'services',
     });
-    this.belongsTo(models.User, { foreignKey: 'user_id', as: 'owner' });
+    this.belongsTo(models.User, { foreignKey: 'owner_id', as: 'owner' });
     this.belongsTo(models.Region, { foreignKey: 'region_id', as: 'region' });
     this.belongsTo(models.Branch, { foreignKey: 'branch_id', as: 'branch' });
   }

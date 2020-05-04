@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'react-native';
 
+import AsyncStorage from '@react-native-community/async-storage'
 import {
   Container,
   Header,
@@ -29,27 +30,64 @@ import {
   ServiceListContainer,
   ScheduleButtonText,
   FooterContainer,
+  PointsIconContainer
 } from './styles';
 import BackButton from '../../components/BackButton';
 import avatar from '../../../tmp/avatar.png';
-import money from '../../assets/icons/business.png';
+import money from '../../assets/icons/money.png';
 import diamond from '../../assets/icons/diamond.png';
 
+import api from '../../services/api';
+
 const EstablishmentProfile = () => {
+  const [establishment, setEstablishment] = useState({});
+
+  const getDataFromAPI = async () => {
+    const token = await AsyncStorage.getItem('@token');
+    try {
+      const response = await api({
+        method: 'GET',
+        url: '/establishment/10',
+        headers: {
+          authorization:
+            `Bearer ${token}`,
+        },
+      });
+      if (response.status === 200) {
+        setEstablishment(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getDataFromAPI();
+  }, []);
+
   return (
     <Container colors={['#B8DFFF', '#FFC28D']}>
       <StatusBar backgroundColor="#B8DFFF" barStyle="dark-content" />
       <BackButton />
       <Header>
         <WelcomeText>SEJA BEM VINDO</WelcomeText>
-        <NameText>ACADEMIA MONSTROFIT</NameText>
+        <NameText>{establishment.name && establishment.name.toUpperCase()}</NameText>
       </Header>
       <Profile>
-        <ProfileImage source={avatar} />
+        {establishment.logo ? (
+          <ProfileImage
+            source={{
+              uri: establishment.logo.url,
+            }}
+          />
+        ) : (
+            <ProfileImage source={avatar} />
+          )}
+
         <SellsContainer>
           <SellImage source={money} />
           <SellsContainerTexts>
-            <SellsNumberText>345</SellsNumberText>
+            <SellsNumberText>{establishment.sells}</SellsNumberText>
             <SellsText>vendas</SellsText>
           </SellsContainerTexts>
         </SellsContainer>
@@ -59,51 +97,23 @@ const EstablishmentProfile = () => {
       </ServicesAvalible>
       <ServiceListContainer>
         <ServicesList horizontal>
-          <ServiceContainer>
-            <ServiceTitle>PACOTE 3</ServiceTitle>
-            <ServiceDesc>
-              Você poderá frequentar a academia com mais 3 alunos, em 3 dias da
-              semana
-            </ServiceDesc>
-            <ServiceValue>R$ 59,99</ServiceValue>
-            <ServicePointsContainer>
-              <PointsIcon source={diamond} />
-              <PointsCount>15</PointsCount>
-            </ServicePointsContainer>
-            <ServiceBuyButton>
-              <ServiceButtonText>ADICIONAR</ServiceButtonText>
-            </ServiceBuyButton>
-          </ServiceContainer>
-          <ServiceContainer>
-            <ServiceTitle>PACOTE 3</ServiceTitle>
-            <ServiceDesc>
-              Você poderá frequentar a academia com mais 3 alunos, em 3 dias da
-              semana
-            </ServiceDesc>
-            <ServiceValue>R$ 59,99</ServiceValue>
-            <ServicePointsContainer>
-              <PointsIcon source={diamond} />
-              <PointsCount>15</PointsCount>
-            </ServicePointsContainer>
-            <ServiceBuyButton>
-              <ServiceButtonText>ADICIONAR</ServiceButtonText>
-            </ServiceBuyButton>
-          </ServiceContainer>
-          <ServiceContainer>
-            <ServiceTitle>PACOTE 3</ServiceTitle>
-            <ServiceDesc>
-              Você poderá frequentar a academia com mais 3 alunos, em 3 dias da
-              semana
-            </ServiceDesc>
-            <ServiceValue>R$ 59,99</ServiceValue>
-            <ServicePointsContainer>
-              <PointsIcon source={diamond} />
-              <PointsCount>15</PointsCount>
-            </ServicePointsContainer>
-            <ServiceBuyButton>
-              <ServiceButtonText>ADICIONAR</ServiceButtonText>
-            </ServiceBuyButton>
-          </ServiceContainer>
+          {establishment.services &&
+            establishment.services.map((item) => (
+              <ServiceContainer key={item.id}>
+                <ServiceTitle>{item.title}</ServiceTitle>
+                <ServiceDesc>{item.description}</ServiceDesc>
+                <ServiceValue>R$ {item.value}</ServiceValue>
+                <ServicePointsContainer>
+                  <PointsIconContainer>
+                    <PointsIcon source={diamond} />
+                  </PointsIconContainer>
+                  <PointsCount>{item.value}</PointsCount>
+                </ServicePointsContainer>
+                <ServiceBuyButton>
+                  <ServiceButtonText>ADICIONAR</ServiceButtonText>
+                </ServiceBuyButton>
+              </ServiceContainer>
+            ))}
         </ServicesList>
       </ServiceListContainer>
       <FooterContainer>

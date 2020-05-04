@@ -30,13 +30,14 @@ export const Profile = styled.View`
   margin-top: 50px;
 `;
 export const ProfileImage = styled.Image`
-  height: 90px;
-  width: 90px;
+  height: 100px;
+  width: 100px;
   border-radius: 50px;
 `;
 export const SellImage = styled.Image`
-  height: 70px;
-  width: 70px;
+  height: 50px;
+  width: 90px;
+  margin: auto 0;
 `;
 export const SellsContainer = styled.View`
   display: flex;
@@ -112,13 +113,18 @@ export const ServicePointsContainer = styled.View`
   margin: 0 auto;
 `;
 export const PointsIcon = styled.Image`
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
+  margin: auto;
+  border-radius: 20px;
+`;
+export const PointsIconContainer = styled.View`
+  width: 30px;
+  height: 30px;
   background: #fff;
-  padding: 5px;
+  border: 2px solid #A2DCFF;
   margin: auto 0;
   border-radius: 20px;
-  transform: rotate(-30deg);
 `;
 export const PointsCount = styled.Text`
   font-family: 'Montserrat-Bold';

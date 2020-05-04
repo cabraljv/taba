@@ -11,7 +11,7 @@ class GeolocationController {
     });
 
     if (!(await shape.isValid(req.query))) {
-      return res.status(400).json({ error: 'User as not a provider' });
+      return res.status(400).json({ error: 'Invalid fields' });
     }
 
     const { latitude, longitude } = req.query;
