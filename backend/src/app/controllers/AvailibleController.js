@@ -34,12 +34,11 @@ class AvailibleController {
     let current_date = schedule.start_date;
     // console.log(addMinutes(current_date, service.minutes));
     while (true) {
-      console.log(current_date);
       const a = appointments.find(
         // eslint-disable-next-line no-loop-func
         (item) => {
           const sd = current_date;
-          const ed = addMinutes(current_date, 30);
+          const ed = addMinutes(current_date, service.minutes);
 
           if (
             (isAfter(sd, item.start_date) && isBefore(sd, item.end_date)) ||
@@ -53,7 +52,7 @@ class AvailibleController {
         horarios.push(current_date);
       }
 
-      current_date = addMinutes(current_date, 30);
+      current_date = addMinutes(current_date, service.minutes);
 
       if (isAfter(current_date, schedule.end_date)) break;
     }
