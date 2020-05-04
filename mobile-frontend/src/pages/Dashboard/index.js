@@ -24,7 +24,6 @@ const Dashboard = () => {
         },
       });
 
-      console.log(response.data);
 
       setEstablishments(response.data);
     } catch (error) {
