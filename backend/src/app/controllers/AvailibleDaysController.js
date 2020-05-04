@@ -20,7 +20,10 @@ class AvailibleDaysController {
     });
 
     const availible = schedules.map((item) => {
-      return `${format(item.start_date, 'yyyy-MM-dd')}`;
+      return {
+        day: `${format(item.start_date, 'yyyy-MM-dd')}`,
+        scheduleId: item.id,
+      };
     });
 
     return res.json(availible);

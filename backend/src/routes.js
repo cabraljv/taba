@@ -13,6 +13,7 @@ import ServiceController from './app/controllers/ServicesController';
 import GeolocationController from './app/controllers/GeolocationController';
 import AppointmentController from './app/controllers/AppointmentController';
 import ConfirmationController from './app/controllers/ConfirmationController';
+import AvailibleController from './app/controllers/AvailibleController';
 import AvailibleDaysController from './app/controllers/AvailibleDaysController';
 
 const routes = new Router();
@@ -46,8 +47,10 @@ routes.post(
   upload.single('logo'),
   EstablishmentController.store
 );
+
 routes.get('/establishment/:establishmentId', EstablishmentController.show);
 
 routes.get('/availible/days/:establishmentId', AvailibleDaysController.index);
+routes.get('/availible', AvailibleController.index);
 
 export default routes;
