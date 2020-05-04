@@ -13,6 +13,7 @@ import ServiceController from './app/controllers/ServicesController';
 import GeolocationController from './app/controllers/GeolocationController';
 import AppointmentController from './app/controllers/AppointmentController';
 import ConfirmationController from './app/controllers/ConfirmationController';
+import AvailibleDaysController from './app/controllers/AvailibleDaysController';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -46,5 +47,7 @@ routes.post(
   EstablishmentController.store
 );
 routes.get('/establishment/:establishmentId', EstablishmentController.show);
+
+routes.get('/availible/days/:establishmentId', AvailibleDaysController.index);
 
 export default routes;
