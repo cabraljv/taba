@@ -36,20 +36,19 @@ import avatar from '../../../tmp/avatar.png';
 import money from '../../assets/icons/money.png';
 import diamond from '../../assets/icons/diamond.png';
 
+import { useAuth } from '../../hooks/auth'
 import api from '../../services/api';
 
-const EstablishmentProfile = () => {
+const EstablishmentProfile = ({ route, navigation }) => {
+  const { establishmentId } = route.params;
+  const { token } = useAuth();
   const [establishment, setEstablishment] = useState({});
 
   const getDataFromAPI = async () => {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTg4Mzg2MTk4LCJleHAiOjE1ODg5OTA5OTh9.zRbL0hL590s8bO4S-I1SCB6NsPFUWZkXCtRNqQUy_rM';
     try {
-      const response = await api({
-        method: 'GET',
-        url: '/establishment/10',
+      const response = await api.get(`/establishment/${establishmentId}`, {
         headers: {
-          authorization:
-            `Bearer ${token}`,
+          authorization: `Bearer ${token}`,
         },
       });
       if (response.status === 200) {
@@ -66,7 +65,7 @@ const EstablishmentProfile = () => {
 
   return (
     <Container colors={['#B8DFFF', '#FFC28D']}>
-      <StatusBar backgroundColor="#B8DFFF" barStyle="dark-content" />
+      <StatusBar backgroundColor="#B8DFFF" barStyle="dark-content" translucent={false} />
       <BackButton />
       <Header>
         <WelcomeText>SEJA BEM VINDO</WelcomeText>
@@ -108,7 +107,14 @@ const EstablishmentProfile = () => {
                   </PointsIconContainer>
                   <PointsCount>{item.value}</PointsCount>
                 </ServicePointsContainer>
-                <ServiceBuyButton>
+                <ServiceBuyButton
+                  onPress={() => {
+                    navigation.push('AppointmentScheduler', {
+                      service: item,
+                      providerId: establishment.id,
+                    })}
+                  }
+                >
                   <ServiceButtonText>ADICIONAR</ServiceButtonText>
                 </ServiceBuyButton>
               </ServiceContainer>

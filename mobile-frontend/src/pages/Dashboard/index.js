@@ -72,13 +72,15 @@ const Dashboard = ({ navigation }) => {
           <MapboxGL.UserLocation />
           {
             establishments.map((item) => {
-              console.log(item.name)
               return (<MapboxGL.PointAnnotation
                 key={item.id}
                 id={item.name}
                 coordinate={[item.longitude, item.latitude]}
+                onSelected={() => navigation.push('EstablishmentProfile', {
+                  establishmentId: item.id,
+                })}
               >
-                <EstablishmentPin >
+                <EstablishmentPin>
                   <EstablishmentImage source={{
                     uri: item.logo.url,
                   }} />
