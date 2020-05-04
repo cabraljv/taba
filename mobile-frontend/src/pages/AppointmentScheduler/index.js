@@ -3,6 +3,7 @@ import { StatusBar, Text } from 'react-native';
 import {
   Container,
   Content,
+  SelectText,
   Header,
   TitleText,
   ServiceName,
@@ -17,6 +18,7 @@ import RNPickerSelect from 'react-native-picker-select';
 
 const AppointmentScheduler = () => {
   const [service, setService] = useState({});
+  const [disable, setDisable] = useState(true);
 
   return (
     <Container colors={['#B8DFFF', '#FFC28D']}>
@@ -34,6 +36,7 @@ const AppointmentScheduler = () => {
 
       <ServiceContainer>
         <PickerContainer>
+          <SelectText>Selecione o dia:</SelectText>
           <RNPickerSelect
             onValueChange={(value) => console.log(value)}
             items={[
@@ -45,14 +48,15 @@ const AppointmentScheduler = () => {
         </PickerContainer>
 
         <PickerContainer>
+          <SelectText>Selecione o horário:</SelectText>
           <RNPickerSelect
-            onValueChange={(value) => console.log(value)}
+            onValueChange={() => setDisable(false)}
             items={[
-              { label: 'Football', value: 'football' },
-              { label: 'Baseball', value: 'baseball' },
-              { label: 'Hockey', value: 'hockey' },
+              { key: "1", label: 'Football', value: 'football' },
+              { key: "2", label: 'Baseball', value: 'baseball' },
+              { key: "3", label: 'Hockey', value: 'hockey' },
             ]}
-            style={{ display: "flex", flex: 1 }}
+            disabled={disable}
           />
         </PickerContainer>
       </ServiceContainer>

@@ -46,7 +46,7 @@ export const ServiceContainer = styled.View`
   margin-top: 24px;
   display: flex;
   elevation: 10;
-
+  padding: 0 8px;
   flex-direction: column;
   justify-content: space-evenly;
 `;
@@ -69,7 +69,14 @@ export const ScheduleButtonText = styled.Text`
 `;
 
 export const PickerContainer = styled.View`
-  width: 95%;
+  width: 100%;
   height: 50px;
   font-size: 18px;
+`;
+
+export const SelectText = styled.Text`
+  font-family: 'Montserrat-Bold';
+  color: #616161;
+  margin-left: 5px;
+  width: 100%;
 `;
