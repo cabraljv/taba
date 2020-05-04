@@ -1,3 +1,3 @@
 # TABA
 
-![ScreenShot](https://raw.github.com//cabraljv/taba/tree/master/mobile-frontend/docs/establishment_screen.png)
+<img alt="Screenshot" title="Screenshot" src="./docs/establishment_screen.png" width="200px" />
