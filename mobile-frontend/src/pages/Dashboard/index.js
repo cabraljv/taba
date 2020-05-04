@@ -1,13 +1,12 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import MapboxGL from '@react-native-mapbox-gl/maps';
-import { StatusBar, Image } from 'react-native';
+import { StatusBar } from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
 import { MAPBOX_KEY } from 'react-native-dotenv';
 import { Container, MapContainer, EstablishmentPin, EstablishmentImage } from './styles';
 
 import api from '../../services/api';
 
-import image from '../../../tmp/avatar.png';
 
 MapboxGL.setAccessToken(MAPBOX_KEY);
 MapboxGL.setConnected(true);
@@ -65,23 +64,26 @@ const Dashboard = () => {
           attributionEnabled={false}
           compassViewPosition={3}
         >
-          <MapboxGL.Camera centerCoordinate={coordinates} zoomLevel={16} />
+          <MapboxGL.Camera centerCoordinate={coordinates} zoomLevel={14} />
           <MapboxGL.UserLocation />
+          {
+            establishments.map((item) => {
+              console.log(item.name)
+              return (<MapboxGL.PointAnnotation
+                key={item.id}
+                id={item.name}
+                coordinate={[item.longitude, item.latitude]}
+              >
+                <EstablishmentPin >
+                  <EstablishmentImage source={{
+                    uri: item.logo.url,
+                  }} />
+                </EstablishmentPin>
+              </MapboxGL.PointAnnotation>)
+            })
+          }
 
-          {establishments.map((establishment) => (
-            <MapboxGL.PointAnnotation
-              id={establishment.id}
-              coordinate={[establishment.longitude, establishment.latitude]}
-            >
-              <EstablishmentPin>
-                <EstablishmentImage
-                  source={{
-                    uri: establishment.logo.url,
-                  }}
-                />
-              </EstablishmentPin>
-            </MapboxGL.PointAnnotation>
-          ))}
+
         </MapboxGL.MapView>
       </MapContainer>
     </Container>
