@@ -15,6 +15,7 @@ export const EstablishmentPin = styled.View`
   justify-content: center;
   background-color: #ffffff;
   border-radius: 45px;
+
 `;
 
 export const EstablishmentImage = styled.Image`

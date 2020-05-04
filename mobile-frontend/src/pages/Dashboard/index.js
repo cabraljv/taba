@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import MapboxGL from '@react-native-mapbox-gl/maps';
-import { StatusBar, View, Text } from 'react-native';
+import { StatusBar, Image } from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
 import { MAPBOX_KEY } from 'react-native-dotenv';
-import { Container, MapContainer } from './styles';
+import { Container, MapContainer, EstablishmentPin, EstablishmentImage } from './styles';
 
 import api from '../../services/api';
+
+import image from '../../../tmp/avatar.png';
 
 MapboxGL.setAccessToken(MAPBOX_KEY);
 MapboxGL.setConnected(true);
