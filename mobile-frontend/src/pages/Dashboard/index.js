@@ -20,7 +20,7 @@ const Dashboard = () => {
       const response = await api.get(`/geo?latitude=${coordinates[1]}&longitude=${coordinates[0]}`, {
         headers: {
           authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTg4Mzg2MTk4LCJleHAiOjE1ODg5OTA5OTh9.zRbL0hL590s8bO4S-I1SCB6NsPFUWZkXCtRNqQUy_rM',
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTg4NTY3OTEyLCJleHAiOjE1ODkxNzI3MTJ9.5egmoX1QdMku3ww8lF5l7IdQ6-RGmdec4D1PXkHHp-M',
         },
       });
 
@@ -30,7 +30,6 @@ const Dashboard = () => {
     } catch (error) {
       console.log(error.response.data)
     }
-
   };
 
   useEffect(() => {
@@ -40,11 +39,10 @@ const Dashboard = () => {
         setCoordinates([longitude, latitude]);
       },
       (error) => console.log(error),
-      { enableHighAccuracy: true, timeout: 1000, maximumAge: 1000 }
+      { enableHighAccuracy: false, timeout: 5000, maximumAge: 1000 }
     );
-
-
   }, []);
+
   useEffect(() => {
     if (coordinates !== [0, 0]) {
       loadEstablishments();
