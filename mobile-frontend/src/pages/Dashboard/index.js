@@ -17,22 +17,19 @@ const Dashboard = () => {
   const [establishments, setEstablishments] = useState([]);
 
   const loadEstablishments = useCallback(async () => {
-    const response = await api({
-      method: 'GET',
-      url: '/geo',
-      query: {
-        longitude: coordinates[0],
-        latitude: coordinates[1],
-      },
-      headers: {
-        authorization:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTg4NTQ0MDg0LCJleHAiOjE1ODkxNDg4ODR9.1g3OkXLyblvKpycwdjh2azHgGS7x_qTQvOXvh6CR6Fg',
-      },
-    });
-
-    console.log(response);
-
-    setEstablishments(response.data);
+    try {
+      api
+        .get(`/geo/?latitude=${coordinates[1]}&longitude=${coordinates[0]}`, {
+          headers: {
+            authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTg4NTQ0MDg0LCJleHAiOjE1ODkxNDg4ODR9.1g3OkXLyblvKpycwdjh2azHgGS7x_qTQvOXvh6CR6Fg',
+          },
+        })
+        .then(response => setEstablishments(response.data))
+        .catch(err => console.log(err));
+    }
+    catch(err) {
+      console.log(err)
+    }
   }, [coordinates]);
 
   useEffect(() => {
