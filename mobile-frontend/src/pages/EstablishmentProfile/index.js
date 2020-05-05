@@ -68,7 +68,7 @@ const EstablishmentProfile = ({ route, navigation }) => {
       <StatusBar backgroundColor="#B8DFFF" barStyle="dark-content" translucent={false} />
       <BackButton onPress={() => navigation.goBack()} />
       <Header>
-        <WelcomeText>SEJA BEM VINDO</WelcomeText>
+        <WelcomeText>SEJA BEM VINDO(A) À</WelcomeText>
         <NameText>{establishment.name && establishment.name.toUpperCase()}</NameText>
       </Header>
       <Profile>
