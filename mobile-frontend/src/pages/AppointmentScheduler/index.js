@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { StatusBar, Text } from 'react-native';
 import {
   Container,
@@ -25,31 +25,32 @@ const AppointmentScheduler = ({ route, navigation }) => {
   const { providerId, service } = route.params;
 
   const [availableDays, setAvailableDays] = useState([]);
+  const [availableHours, setAvailableHours] = useState([]);
   const [disable, setDisable] = useState(true);
 
   useEffect(() => {
-    async function loadAvailableDays() {
-      try {
-        const response = await api.get(`/availible/days/${providerId}`, {
-          headers: {
-            authorization: `Bearer ${token}`,
-          }
-        });
-        let array = response.data.map((day, index) => (
-          {
-            label: day,
-            value: `data-${index}`
-          }
-        ))
+    // async function loadAvailableDays() {
+    //   try {
+    //     const response = await api.get(`/availible/days/${providerId}`, {
+    //       headers: {
+    //         authorization: `Bearer ${token}`,
+    //       }
+    //     });
+    //     let array = response.data.map((day, index) => (
+    //       {
+    //         label: day,
+    //         value: `data-${index}`
+    //       }
+    //     ))
 
-        setAvailableDays(array)
-      }
-      catch(err) {
-        console.log(err.response.data)
-      }
-    }
+    //     setAvailableDays(array)
+    //   }
+    //   catch(err) {
+    //     console.log(err.response.data)
+    //   }
+    // }
 
-    loadAvailableDays()
+    // loadAvailableDays()
   }, []);
 
   return (
@@ -57,7 +58,7 @@ const AppointmentScheduler = ({ route, navigation }) => {
       <StatusBar backgroundColor="#B8DFFF" barStyle="dark-content" translucent={false} />
 
       <Navigation>
-        <BackButton />
+        <BackButton onPress={() => navigation.goBack()} />
       </Navigation>
 
       <Content>
@@ -71,7 +72,32 @@ const AppointmentScheduler = ({ route, navigation }) => {
           <SelectText>Selecione o dia:</SelectText>
           <RNPickerSelect
             onValueChange={() => setDisable(false)}
-            items={availableDays}
+            items={[
+              {
+                label: '10/05',
+                value: `date1005`
+              },
+              {
+                label: '11/05',
+                value: `date1105`
+              },
+              {
+                label: '12/05',
+                value: `date1205`
+              },
+              {
+                label: '13/05',
+                value: `date1305`
+              },
+              {
+                label: '14/05',
+                value: `date1405`
+              },
+              {
+                label: '15/05',
+                value: `date1505`
+              },
+            ]}
           />
         </PickerContainer>
 
@@ -80,16 +106,45 @@ const AppointmentScheduler = ({ route, navigation }) => {
           <RNPickerSelect
             onValueChange={value => value}
             items={[
-              { label: format(new Date('2020-05-05T08:00:00.000Z'), 'HH:mm'), value: 'horario' },
-              { key: "2", label: 'Baseball', value: 'baseball' },
-              { key: "3", label: 'Hockey', value: 'hockey' },
+              {
+                label: '08:00',
+                value: `1`
+              },
+              {
+                label: '09:00',
+                value: `2`
+              },
+              {
+                label: '10:00',
+                value: `3`
+              },
+              {
+                label: '11:00',
+                value: `4`
+              },
+              {
+                label: '12:00',
+                value: `5`
+              },
+              {
+                label: '13:00',
+                value: `6`
+              },
+              {
+                label: '14:00',
+                value: `7`
+              },
+              {
+                label: '15:00',
+                value: `8`
+              },
             ]}
             disabled={disable}
           />
         </PickerContainer>
       </ServiceContainer>
 
-      <ScheduleButton>
+      <ScheduleButton onPress={() => navigation.push('ConfirmationScreen')}>
         <ScheduleButtonText>AGENDAR</ScheduleButtonText>
       </ScheduleButton>
       </Content>

@@ -66,7 +66,7 @@ const EstablishmentProfile = ({ route, navigation }) => {
   return (
     <Container colors={['#B8DFFF', '#FFC28D']}>
       <StatusBar backgroundColor="#B8DFFF" barStyle="dark-content" translucent={false} />
-      <BackButton />
+      <BackButton onPress={() => navigation.goBack()} />
       <Header>
         <WelcomeText>SEJA BEM VINDO</WelcomeText>
         <NameText>{establishment.name && establishment.name.toUpperCase()}</NameText>
@@ -115,17 +115,12 @@ const EstablishmentProfile = ({ route, navigation }) => {
                     })}
                   }
                 >
-                  <ServiceButtonText>ADICIONAR</ServiceButtonText>
+                  <ServiceButtonText>AGENDAR</ServiceButtonText>
                 </ServiceBuyButton>
               </ServiceContainer>
             ))}
         </ServicesList>
       </ServiceListContainer>
-      <FooterContainer>
-        <ScheduleButton disabled>
-          <ScheduleButtonText disabled>AGENDAR</ScheduleButtonText>
-        </ScheduleButton>
-      </FooterContainer>
     </Container>
   );
 };
